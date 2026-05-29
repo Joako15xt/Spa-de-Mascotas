@@ -1,6 +1,6 @@
 <?php
-require_once 'modelo/Usuario.php';
-require_once 'modelo/AuditLog.php';
+require_once __DIR__ . '/../modelo/Usuario.php';
+require_once __DIR__ . '/../modelo/AuditLog.php';
 
 class usuarioController {
     public $view = 'usuario_lista';

@@ -51,8 +51,9 @@ if(!file_exists($controllerFile)){
     $controllerClass = 'homeController';
 }
 
-require_once $controllerFile;
-$ctrl = new $controllerClass();
+require_once $controllerFile;if(!class_exists($controllerClass)){
+    $controllerClass = 'homeController';
+}$ctrl = new $controllerClass();
 
 $dataToView = ['data' => []];
 

@@ -1,5 +1,5 @@
 <?php
-require_once 'modelo/db.php';
+require_once __DIR__ . '/db.php';
 
 class Usuario {
     private $con;
@@ -44,6 +44,18 @@ class Usuario {
         return (bool)$stmt->fetch();
     }
 
+    public function usernameExiste($username, $idExcluir = null){
+        if($idExcluir){
+            $stmt = $this->con->prepare("SELECT id FROM usuarios WHERE username=? AND id<>?");
+            $stmt->execute([$username, $idExcluir]);
+        } else {
+            $stmt = $this->con->prepare("SELECT id FROM usuarios WHERE username=?");
+            $stmt->execute([$username]);
+        }
+
+        return (bool)$stmt->fetch();
+    }
+
     public function validarPasswordFuerte($password){
         if(strlen($password) < 8) {
             return "La contraseña debe tener mínimo 8 caracteres.";
@@ -77,16 +89,22 @@ class Usuario {
         $password = $data['password'] ?? '';
         $password_confirm = $data['password_confirm'] ?? '';
 
+        $username = trim($data['username'] ?? '');
+
         if($password !== $password_confirm){
             throw new Exception("Las contraseñas no coinciden.");
         }
 
-        if($nombre === '' || $correo === '' || $password === '') {
-            throw new Exception("Nombre, correo y contraseña son obligatorios.");
+        if($nombre === '' || $username === '' || $correo === '' || $password === '') {
+            throw new Exception("Nombre, usuario, correo y contraseña son obligatorios.");
         }
 
         if($this->correoExiste($correo)){
             throw new Exception("Ese correo ya está registrado.");
+        }
+
+        if($this->usernameExiste($username)){
+            throw new Exception("Ese nombre de usuario ya está en uso. Elija otro.");
         }
 
         $val = $this->validarPasswordFuerte($password);
@@ -94,7 +112,6 @@ class Usuario {
             throw new Exception($val);
         }
 
-        $username = explode('@', $correo)[0] . rand(10,99);
         $hash = password_hash($password, PASSWORD_BCRYPT);
 
         try {

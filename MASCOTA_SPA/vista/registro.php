@@ -19,12 +19,18 @@ $csrf = $dataToView['data']['csrf'] ?? '';
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label>Nombre completo</label>
-                            <input class="form-control" name="nombre_completo" required>
+                            <input class="form-control" name="nombre_completo" required value="<?php echo htmlspecialchars($_POST['nombre_completo'] ?? ''); ?>">
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label>Usuario</label>
+                            <input class="form-control" name="username" required value="<?php echo htmlspecialchars($_POST['username'] ?? ''); ?>">
+                            <small class="text-muted">Elija un nombre único para ingresar al sistema.</small>
                         </div>
 
                         <div class="col-md-6 mb-3">
                             <label>Correo</label>
-                            <input class="form-control" type="email" name="correo" required>
+                            <input class="form-control" type="email" name="correo" required value="<?php echo htmlspecialchars($_POST['correo'] ?? ''); ?>">
                         </div>
 
                         <div class="col-md-6 mb-3">

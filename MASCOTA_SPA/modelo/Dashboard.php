@@ -41,13 +41,13 @@ class Dashboard {
                 c.id,
                 m.nombre AS mascota,
                 s.nombre AS servicio,
-                c.fecha_cita,
+                c.fecha,
                 c.hora_inicio,
                 c.estado
             FROM citas c
             INNER JOIN mascotas m ON c.mascota_id = m.id
             INNER JOIN servicios s ON c.servicio_id = s.id
-            WHERE DATE(c.fecha_cita) = CURDATE()
+            WHERE DATE(c.fecha) = CURDATE()
             ORDER BY c.hora_inicio ASC
             LIMIT 10
         ";

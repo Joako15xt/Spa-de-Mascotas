@@ -1,19 +1,21 @@
 <?php
 
-$servicios = $dataToView['data']['servicios'] ?? [];
+$groomers = $dataToView['data']['groomers'] ?? [];
 
 ?>
 
 <div class="d-flex justify-content-between align-items-center mb-4">
 
-    <h2>
-        ✂️ Servicios Grooming
+    <h2 class="fw-bold">
+
+        👨‍🔧 Groomers
+
     </h2>
 
-    <a href="index.php?controller=servicio&action=crear"
+    <a href="index.php?controller=groomer&action=crear"
        class="btn btn-primary">
 
-        ➕ Nuevo Servicio
+       ➕ Nuevo Groomer
 
     </a>
 
@@ -31,10 +33,11 @@ $servicios = $dataToView['data']['servicios'] ?? [];
 
                     <tr>
 
-                        <th>ID</th>
-                        <th>Servicio</th>
-                        <th>Duración</th>
-                        <th>Precio</th>
+                        <th>Nombre</th>
+                        <th>Usuario</th>
+                        <th>Email</th>
+                        <th>Especialidad</th>
+                        <th>Horario</th>
                         <th>Estado</th>
                         <th>Acciones</th>
 
@@ -44,54 +47,68 @@ $servicios = $dataToView['data']['servicios'] ?? [];
 
                 <tbody>
 
-                    <?php foreach($servicios as $s): ?>
+                    <?php foreach($groomers as $g): ?>
 
                         <tr>
 
                             <td>
-                                <?php echo $s['id']; ?>
-                            </td>
 
-                            <td>
-
-                                <strong>
-                                    <?php echo htmlspecialchars($s['nombre']); ?>
-                                </strong>
+                                👨‍🔧
+                                <?php echo htmlspecialchars($g['nombre']); ?>
 
                             </td>
 
                             <td>
 
-                                <span class="badge bg-info">
-
-                                    <?php echo $s['duracion_minutos']; ?> min
-
-                                </span>
+                                <?php echo htmlspecialchars($g['usuario']); ?>
 
                             </td>
 
                             <td>
 
-                                <span class="badge bg-success">
-
-                                    Bs. <?php echo $s['precio_base']; ?>
-
-                                </span>
+                                <?php echo htmlspecialchars($g['email']); ?>
 
                             </td>
 
                             <td>
 
-                                <?php if($s['activo']): ?>
+                                ✂️
+                                <?php echo htmlspecialchars($g['especialidad']); ?>
+
+                            </td>
+
+                            <td>
+
+                                🕒
+
+                                <?php
+                                echo substr($g['hora_inicio'],0,5);
+                                ?>
+
+                                -
+
+                                <?php
+                                echo substr($g['hora_fin'],0,5);
+                                ?>
+
+                            </td>
+
+                            <td>
+
+                                <?php if($g['activo']): ?>
 
                                     <span class="badge bg-success">
+
                                         Activo
+
                                     </span>
 
                                 <?php else: ?>
 
                                     <span class="badge bg-danger">
+
                                         Inactivo
+
                                     </span>
 
                                 <?php endif; ?>
@@ -100,18 +117,10 @@ $servicios = $dataToView['data']['servicios'] ?? [];
 
                             <td>
 
-                                <a href="index.php?controller=servicio&action=editar&id=<?php echo $s['id']; ?>"
+                                <a href="index.php?controller=groomer&action=editar&id=<?php echo $g['id']; ?>"
                                    class="btn btn-warning btn-sm">
 
-                                    ✏️
-
-                                </a>
-
-                                <a href="index.php?controller=servicio&action=eliminar&id=<?php echo $s['id']; ?>"
-                                   class="btn btn-danger btn-sm"
-                                   onclick="return confirm('¿Eliminar servicio?')">
-
-                                    🗑
+                                   ✏️ Editar
 
                                 </a>
 

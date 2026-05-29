@@ -26,6 +26,7 @@ class authController {
         $_SESSION['usuario'] = [
             'id' => $row['id'],
             'nombre' => $row['nombre_completo'],
+            'nombre_completo' => $row['nombre_completo'],
             'username' => $row['username'],
             'correo' => $row['correo'],
             'rol_id' => $row['rol_id'],

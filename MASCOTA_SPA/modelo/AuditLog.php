@@ -1,5 +1,5 @@
 <?php
-require_once 'modelo/db.php';
+require_once __DIR__ . '/db.php';
 
 class AuditLog {
     private $con;

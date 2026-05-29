@@ -1,5 +1,5 @@
 <?php
-require_once 'modelo/AuditLog.php';
+require_once __DIR__ . '/../modelo/AuditLog.php';
 
 class auditoriaController {
     public $view = 'auditoria_lista';
